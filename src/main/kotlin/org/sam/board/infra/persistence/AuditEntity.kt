@@ -1,16 +1,21 @@
-package org.sam.board.infra.database
+package org.sam.board.infra.persistence
 
 import jakarta.persistence.Column
 import jakarta.persistence.MappedSuperclass
-import java.time.LocalDate
+import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
 
 @MappedSuperclass
-class AuditEntity {
+abstract class AuditEntity {
+    @Comment("생성 시간")
     @Column(columnDefinition = "datetime", nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now()
+
+    @Comment("수정 시간")
     @Column(columnDefinition = "datetime", nullable = false)
     val updatedAt: LocalDateTime = LocalDateTime.now()
+
+    @Comment("삭제 시간")
     @Column(columnDefinition = "datetime", nullable = true)
     val deletedAt: LocalDateTime? = null
 }
